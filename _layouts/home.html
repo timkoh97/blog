@@ -1,0 +1,36 @@
+---
+layout: default
+---
+
+<section class="home-intro">
+  <p class="home-intro__tagline">{{ site.description }}</p>
+</section>
+
+<section class="post-list">
+  {% for post in site.posts %}
+  <article class="post-card {% unless post.image %}post-card--no-image{% endunless %}">
+
+    {% if post.image %}
+    <img
+      class="post-card__image"
+      src="{{ post.image | relative_url }}"
+      alt="{{ post.title }}">
+    {% endif %}
+
+    <div class="post-card__text">
+      <div class="post-card__meta">
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %B %Y" }}</time>
+        {% if post.category %} &nbsp;·&nbsp; {{ post.category }}{% endif %}
+      </div>
+      <h2 class="post-card__title">
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      </h2>
+      {% if post.excerpt %}
+      <p class="post-card__excerpt">{{ post.excerpt | strip_html | truncate: 160 }}</p>
+      {% endif %}
+      <a class="post-card__read-more" href="{{ post.url | relative_url }}">Read</a>
+    </div>
+
+  </article>
+  {% endfor %}
+</section>
